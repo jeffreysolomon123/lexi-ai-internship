@@ -20,6 +20,15 @@ export const useAppStore = create((set, get) => ({
             },
         }));
     },
+    view: "grid",
+    isChangingView: () => {
+        if(get().view === "grid") {
+            set({view: "list"})
+        }
+        else {
+            set({view: "grid"})
+        }
+    },
 
 
 }));

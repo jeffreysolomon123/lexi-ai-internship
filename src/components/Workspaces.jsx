@@ -7,7 +7,7 @@ const Workspaces = () => {
     const [viewType, setViewType] = useState("grid");
     const addToWorkspace = useAppStore((state) => state.addToWorkspace);
     const workspace = useAppStore((state) => state.workspace);
-
+    const {view,isChangingView} = useAppStore();
 
     const [formData, setFormData] = useState({
         caseType: '',
@@ -52,14 +52,17 @@ const Workspaces = () => {
     };
 
     return (
-        <div className="ml-3">
+        <div className="ml-3 poppins-regular">
 
-            {/* 🧭 HEADER - View Type Switch */}
+
             <div className="flex justify-between mr-5 ml-5 items-center">
                 <h1 className="text-black text-2xl poppins-semibold">Workspaces</h1>
                 <div className="flex gap-1">
                     <button
-                        onClick={() => setViewType("grid")}
+                        onClick={() => {
+                            setViewType("grid")
+                            isChangingView();
+                        }}
                         className={`btn flex items-center gap-2 border ${
                             viewType === "grid"
                                 ? "bg-purple-200 text-white sidebar-bg"
@@ -70,7 +73,10 @@ const Workspaces = () => {
                         <h3>Grid</h3>
                     </button>
                     <button
-                        onClick={() => setViewType("list")}
+                        onClick={() => {
+                            setViewType("list")
+                            isChangingView();
+                        }}
                         className={`btn flex items-center gap-2 border ${
                             viewType === "list"
                                 ? "bg-purple-200 text-white sidebar-bg"
@@ -85,7 +91,7 @@ const Workspaces = () => {
 
             <hr className="border-b border-gray-100 mt-4 w-full ml-3 mr-7" />
 
-            {/* 📁 CATEGORY TABS */}
+
             <div className="flex items-center gap-6 mt-3 ml-7">
                 <h2 className="poppins-regular text-gray-600 cursor-pointer">Contracts</h2>
                 <h2 className="poppins-regular text-black cursor-pointer underline underline-offset-8">Litigation</h2>
@@ -93,9 +99,9 @@ const Workspaces = () => {
 
             <hr className="border-b border-gray-100 mt-4 w-full ml-3 mr-7" />
 
-            {/* 🔍 FILTER BAR */}
+
             <div className="mt-4 flex items-center gap-2">
-                {/* Search */}
+
                 <label className="input bg-white text-black rounded-lg border border-gray-300 border-2 ml-12 w-90 h-8 text-md">
                     <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                         <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
@@ -106,7 +112,7 @@ const Workspaces = () => {
                     <input type="search" required placeholder="Search by Workspace Name / Client Name" />
                 </label>
 
-                {/* Type Dropdown */}
+
                 <div className="dropdown">
                     <label
                         tabIndex={0}
@@ -120,7 +126,7 @@ const Workspaces = () => {
                     </ul>
                 </div>
 
-                {/* Status Dropdown */}
+
                 <div className="dropdown">
                     <label
                         tabIndex={0}
@@ -134,7 +140,7 @@ const Workspaces = () => {
                     </ul>
                 </div>
 
-                {/* Create Workspace Button */}
+
                 <button
                     className="btn h-8"
                     onClick={() => document.getElementById('my_modal_3').showModal()}
@@ -143,7 +149,7 @@ const Workspaces = () => {
                 </button>
             </div>
 
-            {/* 🧩 MODAL 1: Upload Workspace */}
+
             <dialog id="my_modal_3" className="modal">
                 <div className="modal-box bg-white">
                     <form method="dialog">
@@ -155,7 +161,7 @@ const Workspaces = () => {
                     <h3 className="font-bold text-lg mb-4 text-black poppins-semibold">Create New Workspace</h3>
 
                     <form className="space-y-4 bg-white poppins-regular">
-                        {/* File Upload */}
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Upload the case files
@@ -173,7 +179,7 @@ const Workspaces = () => {
                             </label>
                         </div>
 
-                        {/* Manual Text Entry */}
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Add case facts manually
@@ -185,7 +191,7 @@ const Workspaces = () => {
                             ></textarea>
                         </div>
 
-                        {/* NEXT Button */}
+
                         <div className="flex justify-end">
                             <button type="button" onClick={handleNext} className="btn sidebar-bg">
                                 Next
@@ -195,7 +201,7 @@ const Workspaces = () => {
                 </div>
             </dialog>
 
-            {/* 🧾 MODAL 2: Additional Setup */}
+
             <dialog id="my_modal_4" className="modal">
                 <div className="modal-box bg-white">
                     <form method="dialog">
